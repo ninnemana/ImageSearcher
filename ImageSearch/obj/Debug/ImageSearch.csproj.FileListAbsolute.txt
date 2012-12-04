@@ -1,0 +1,6 @@
+C:\Projects\C#\Console\ImageSearch\ImageSearch\bin\Debug\ImageSearch.exe.config
+C:\Projects\C#\Console\ImageSearch\ImageSearch\bin\Debug\ImageSearch.exe
+C:\Projects\C#\Console\ImageSearch\ImageSearch\bin\Debug\ImageSearch.pdb
+C:\Projects\C#\Console\ImageSearch\ImageSearch\obj\Debug\ImageSearch.csprojResolveAssemblyReference.cache
+C:\Projects\C#\Console\ImageSearch\ImageSearch\obj\Debug\ImageSearch.exe
+C:\Projects\C#\Console\ImageSearch\ImageSearch\obj\Debug\ImageSearch.pdb
