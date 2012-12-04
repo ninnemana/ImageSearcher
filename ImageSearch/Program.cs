@@ -40,7 +40,6 @@ namespace ImageSearch {
                 }
             }
 
-
             string existsPath = @"exists.csv";  
             string missingPath = @"missing.csv";
 
@@ -50,22 +49,34 @@ namespace ImageSearch {
                 StringBuilder existsBuilder = new StringBuilder();
                 StringBuilder missingBuilder = new StringBuilder();
 
-                while ((line = readFile.ReadLine()) != null) {
-                    Parallel.ForEach(subs, sub => {
+                try {
+                    //Create a new subfolder under the current active folder 
+                    string newPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Images");
 
-                        string file_path = img_dir + line + "_" + sub + ".jpg";
-                        FileInfo inf = new FileInfo(file_path);
-                        if (inf.Exists) {
-                            existsBuilder.Append(file_path + "\n");
-                        } else {
-                            missingBuilder.Append(file_path + "\n");
-                        }
-                        count++;
-                    });
+                    // Create the subfolder
+                    System.IO.Directory.CreateDirectory(newPath);
+                    while ((line = readFile.ReadLine()) != null) {
+                        Parallel.ForEach(subs, sub => {
+
+                            string file_path = img_dir + line + "_" + sub + ".jpg";
+                            FileInfo inf = new FileInfo(file_path);
+                            if (inf.Exists) {
+                                existsBuilder.Append(file_path + "\n");
+                                System.IO.Directory.GetCurrentDirectory();
+                                File.Copy(file_path, Path.Combine(newPath,line + "_" + sub + ".jpg"));
+                            } else {
+                                missingBuilder.Append(file_path + "\n");
+                            }
+                            count++;
+                        });
+                    }
+                    File.WriteAllText(existsPath, existsBuilder.ToString());
+                    File.WriteAllText(missingPath, missingBuilder.ToString());
+                    Console.WriteLine("And done.");
+                } catch (Exception e) {
+                    Console.WriteLine("Oh shit, I fucked up. " + e.InnerException);
                 }
-                File.WriteAllText(existsPath, existsBuilder.ToString());
-                File.WriteAllText(missingPath, missingBuilder.ToString());
-                Console.WriteLine("And done.");
+                
             }
             Console.ReadLine();
         }
